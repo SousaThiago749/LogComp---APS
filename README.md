@@ -2,31 +2,38 @@
 
 # Resumo da Linguagem
 
-- **Declarações** de variáveis diretas: tipo + nome.
-- **Tipos suportados:**
-  - `inteirao` → `int`
-  - `falae` → `string`
-  - `verdade_ou_farsa` → `bool`
-- **Valores booleanos:**
-  - `eh_tudo` → `true`
-  - `eh_nada` → `false`
-- **Entrada/Saída:**
-  - `mostra_ae(expr)` → print
-  - `pega_ae_jao()` → input
-- **Controle de Fluxo:**
-  - `se_liga_jao expr { bloco } [ se_nao_jao { bloco } ]`
-  - `vai_rodando_ae expr { bloco }`
-- **Operadores suportados:**
-  - Aritméticos: `+`, `-`, `*`, `/`
-  - Relacionais: `==`, `<`, `>`
-  - Lógicos: `&&`, `||`
+* **Declarações** de variáveis diretas: tipo + nome.
+* **Tipos suportados:**
+
+  * `inteirao` → `int`
+  * `falae` → `string`
+  * `verdade_ou_farsa` → `bool`
+* **Valores booleanos:**
+
+  * `eh_tudo` → `true`
+  * `eh_nada` → `false`
+* **Entrada/Saída:**
+
+  * `mostra_ae(expr)` → print
+  * `escuta_ae_jao()` → input
+* **Controle de Fluxo:**
+
+  * `se_liga_jao expr << bloco >> [ se_nao_jao << bloco >> ]`
+  * `vai_rodando_ae expr << bloco >>`
+  * `repete_ate_jao << bloco >> quando expr`
+* **Operadores suportados:**
+
+  * Aritméticos: `+`, `-`, `*`, `/`
+  * Relacionais: `==`, `<`, `>`
+  * Lógicos: `&&`, `||`
+  * Atribuição: `vira` (em vez de `=`)
 
 ---
 
 # Definição Formal (EBNF)
 
 ```ebnf
-<programa> ::= "{" <lista_de_comandos> "}"
+<programa> ::= "<<" <lista_de_comandos> ">>"
 
 <lista_de_comandos> ::= <comando> { <comando> }
 
@@ -34,22 +41,25 @@
             | <atribuicao> 
             | <comando_condicional> 
             | <comando_repeticao> 
+            | <comando_repeticao_nova>
             | <comando_saida>
             | <comando_entrada>
 
-<declaracao> ::= <tipo> <identificador> [ "=" <expressao> ]
+<declaracao> ::= <tipo> <identificador> [ "vira" <expressao> ]
 
-<atribuicao> ::= <identificador> "=" <expressao>
+<atribuicao> ::= <identificador> "vira" <expressao>
 
 <comando_condicional> ::= "se_liga_jao" <expressao> <bloco> [ "se_nao_jao" <bloco> ]
 
 <comando_repeticao> ::= "vai_rodando_ae" <expressao> <bloco>
 
+<comando_repeticao_nova> ::= "repete_ate_jao" <bloco> "quando" <expressao>
+
 <comando_saida> ::= "mostra_ae" "(" <expressao> ")"
 
-<comando_entrada> ::= "pega_ae_jao" "(" ")"
+<comando_entrada> ::= "escuta_ae_jao" "(" ")"
 
-<bloco> ::= "{" <lista_de_comandos> "}"
+<bloco> ::= "<<" <lista_de_comandos> ">>"
 
 <tipo> ::= "inteirao" | "falae" | "verdade_ou_farsa"
 
@@ -78,23 +88,28 @@
 # Exemplo de Programa
 
 ```plaintext
-{
-    inteirao idade = 18
-    falae nome = "Jaozinho"
-    verdade_ou_farsa ta_firmasso = eh_tudo
+<<
+    inteirao idade vira 18
+    falae nome vira "Jaozinho"
+    verdade_ou_farsa ta_firmasso vira eh_tudo
 
     mostra_ae(idade)
     mostra_ae(nome)
 
-    se_liga_jao idade > 17 {
+    se_liga_jao idade > 17 <<
         mostra_ae("Pode tirar carta!")
-    } se_nao_jao {
+    >> se_nao_jao <<
         mostra_ae("Vai crescer primeiro, parça!")
-    }
+    >>
 
-    vai_rodando_ae idade < 21 {
-        idade = idade + 1
+    vai_rodando_ae idade < 21 <<
+        idade vira idade + 1
         mostra_ae(idade)
-    }
-}
+    >>
+
+    repete_ate_jao <<
+        idade vira idade + 2
+        mostra_ae(idade)
+    >> quando idade < 30
+>>
 ```

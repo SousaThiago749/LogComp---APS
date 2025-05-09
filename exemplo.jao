@@ -1,0 +1,24 @@
+<<
+    inteirao idade vira 18
+    falae nome vira "Jaozinho"
+    verdade_ou_farsa ta_firmasso vira eh_tudo
+
+    mostra_ae(idade)
+    mostra_ae(nome)
+
+    se_liga_jao idade > 17 <<
+        mostra_ae("Pode tirar carta!")
+    >> se_nao_jao <<
+        mostra_ae("Vai crescer primeiro, parça!")
+    >>
+
+    vai_rodando_ae (idade < 21) <<
+        idade vira idade + 1
+        mostra_ae(idade)
+    >>
+
+    repete_ate_jao <<
+        idade vira idade + 2
+        mostra_ae(idade)
+    >> quando (idade < 30)
+>>
