@@ -1,24 +1,64 @@
 <<
-    inteirao idade vira 18
-    falae nome vira "Jaozinho"
-    verdade_ou_farsa ta_firmasso vira eh_tudo
+  // == Teste de Booleanos ==
+  mostra_ae("== Teste de Booleanos ==")
+  verdade_ou_farsa b1 vira eh_tudo
+  verdade_ou_farsa b2 vira eh_nada
+  mostra_ae("b1 deve ser true:")
+  mostra_ae(b1)
+  mostra_ae("b2 deve ser false:")
+  mostra_ae(b2)
 
-    mostra_ae(idade)
-    mostra_ae(nome)
+  // == Teste de Atribuição (vira) ==
+  mostra_ae("== Teste de Atribuição ==")
+  inteirao x vira 10
+  mostra_ae("x deve ser 10:")
+  mostra_ae(x)
+  x vira x + 5
+  mostra_ae("x agora deve ser 15:")
+  mostra_ae(x)
 
-    se_liga_jao idade > 17 <<
-        mostra_ae("Pode tirar carta!")
-    >> se_nao_jao <<
-        mostra_ae("Vai crescer primeiro, parça!")
-    >>
+  // == Teste de Strings e concatenação ==
+  mostra_ae("== Teste de Strings ==")
+  falae s1 vira "Olá"
+  falae s2 vira " Mundo"
+  falae s3 vira s1 + s2
+  mostra_ae("s3 deve ser Olá Mundo:")
+  mostra_ae(s3)
 
-    vai_rodando_ae (idade < 21) <<
-        idade vira idade + 1
-        mostra_ae(idade)
-    >>
+  // == Teste de Operadores Lógicos ==
+  mostra_ae("== Teste de Operadores Lógicos ==")
+  verdade_ou_farsa p1 vira eh_tudo && eh_nada
+  verdade_ou_farsa p2 vira eh_tudo || eh_nada
+  mostra_ae("p1 deve ser false:")
+  mostra_ae(p1)
+  mostra_ae("p2 deve ser true:")
+  mostra_ae(p2)
 
-    repete_ate_jao <<
-        idade vira idade + 2
-        mostra_ae(idade)
-    >> quando (idade < 30)
+  // == Teste de Operadores Relacionais ==
+  mostra_ae("== Teste de Operadores Relacionais ==")
+  verdade_ou_farsa c1 vira (1 < 2)
+  verdade_ou_farsa c2 vira (2 > 3)
+  verdade_ou_farsa c3 vira (5 == 5)
+  mostra_ae("c1 true, c2 false, c3 true:")
+  mostra_ae(c1)
+  mostra_ae(c2)
+  mostra_ae(c3)
+
+  // == Teste de laço FOR ==
+  mostra_ae("== Teste de FOR ==")
+  inteirao sum_for vira 0
+  vai_rodando_ae (sum_for < 5) <<
+    sum_for vira sum_for + 1
+  >>
+  mostra_ae("sum_for deve ser 5:")
+  mostra_ae(sum_for)
+
+  // == Teste de laço REPEAT…WHEN (while) ==
+  mostra_ae("== Teste de REPEAT…WHEN ==")
+  inteirao sum_rep vira 0
+  repete_ate_jao <<
+    sum_rep vira sum_rep + 2
+  >> quando (sum_rep < 10)
+  mostra_ae("sum_rep deve ser 10:")
+  mostra_ae(sum_rep)
 >>
